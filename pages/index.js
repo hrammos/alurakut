@@ -1,10 +1,62 @@
-import styled from 'styled-components'
+import { MainGrid } from '../src/components/MainGrid'
+import { Box } from '../src/components/Box'
+import { AlurakutMenu } from '../src/lib/AlurakutCommons'
 
-const Title = styled.h1`
-  font-size: 50px;
-  color: ${({ theme }) => theme.colors.primary};
-`
+function ProfileSideBar(propriedades) {
+  return (
+    <Box>
+      <img src={`https://github.com/${propriedades.githubUser}.png`}  style={{ borderRadius: '8px' }}/>
+    </Box>
+  )
+}
 
 export default function Home() {
-  return <Title>My page</Title>
+  const usuarioAleatorio = 'hrammos'
+  const pessoasFavoritas = [
+    'juunegreiros',
+    'omariosouto',
+    'peas',
+    'rafaballerini',
+    'macobrunedev',
+    'felipefialho',
+  ]
+
+  return (
+    <>
+      <AlurakutMenu />
+      <MainGrid>
+        <div className="profileArea" style={{ gridArea: 'profileArea' }}>
+          <ProfileSideBar githubUser={usuarioAleatorio} />
+        </div>
+        <div className="welcomeArea" style={{ gridArea: 'welcomeArea' }}>
+          <Box>
+            Bem vindo
+          </Box>
+        </div>
+        <div className="profileRelationsArea" style={{ gridArea: 'profileRelationsArea' }}>
+          <Box>
+            <h2 className="smallTitle">
+              Pessoas da comunidade ({pessoasFavoritas.lengh})
+            </h2>
+
+            <ul>
+              {pessoasFavoritas.map((itemAtual) => {
+                return (
+                <li key={itemAtual}>
+                    <a href={`/users/${itemAtual}`} >
+                      <img src={`https://github.com/${itemAtual}.png`} />
+                      <span>{itemAtual}</span>
+                    </a>
+                </li> 
+                )
+              })}
+            </ul>
+          </Box>
+          <Box>
+            Comunidades
+          </Box>
+        </div>
+      </MainGrid>
+    </>
+  )
 }
